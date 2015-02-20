@@ -1,4 +1,4 @@
-/*Ulysses Lin 12/9/14*/
+/*Ulysses Lin 12/9/14, updated Feb 2015*/
 
 *{
     padding: 0px;
@@ -58,9 +58,6 @@
         text-align: left;
         color: black;
     }
-    th {
-        border-color: 
-    }
     .page-container{
         display: inline;
         text-decoration: none;
@@ -69,6 +66,7 @@
     .id-link{
         color: #FF7276;
     }
+    
 /*edit_view styling*/
     table{
         width: 100%;

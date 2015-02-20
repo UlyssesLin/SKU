@@ -15,9 +15,7 @@
                 $(this).serialize(),
                 function(names_received){
                 	if((names_received).length!=0){
-                		console.log(names_received);
                 		for(i=0;i<names_received.length;i++){
-                			console.log(names_received[i].src1);
                 			$('#products-container').append('<div class="product"><a href="/product/'+names_received[i].id+'"><img class="main-image" src="'+names_received[i].src1+'"></a><p class="product-name">'+names_received[i].item+'</p><p class="price">'+names_received[i].price+'</p></div>');
                 		}
                 	}
@@ -47,11 +45,11 @@
 	<a href="/"><h1>S.K.U.</h1></a>
 	<div id='nav'>
 		<ul>
-			<a href='/category/1'><li>SHIRTS</li></a>
-			<a href='/category/2'><li>PANTS</li></a>
-			<a href='/category/3'><li>DRESSES</li></a>
-			<a href='/category/4'><li>SWEATERS</li></a>
-			<a href='/category/5'><li>OUTERWEAR</li></a>
+			<a href='/category/2'><li>SHIRTS</li></a>
+			<a href='/category/7'><li>PANTS</li></a>
+			<a href='/category/16'><li>SKIRTS</li></a>
+			<a href='/category/5'><li>SWEATERS</li></a>
+			<a href='/category/6'><li>OUTERWEAR</li></a>
 		</ul>
 		<form id="SearchForm" action="/findItems">
 			<input type="search" placeholder="WHAT CAN WE HELP YOU FIND?" name="searchPhrase">
@@ -59,7 +57,7 @@
 	</div>
 	
 	<div id="image-header">
-		<img src="https://www.madewell.com/media/assets/NewHP/img0_v1_m56577569830605389.jpg" border="0">
+		<img src="/assets/img/madewell_1.jpg" border="0">
 	</div>
 	<div id="products-container-wrapper">
 		<div id="products-container">

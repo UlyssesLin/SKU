@@ -1,6 +1,6 @@
 <?php
+//Ulysses Lin 12/10/14, updated Feb 2015
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-//Ulysses Lin 12/10/14
 class Products_process extends CI_Controller {
 	public function index(){
 		$this->load->view('products_view',$this->session->userdata);
@@ -8,6 +8,10 @@ class Products_process extends CI_Controller {
 	public function editView(){
 		$this->load->view('edit_view',$this->session->userdata);
 	}
+
+// ADMIN PRODUCTS LISTING PAGE
+
+	//Get info of products for listing
 	public function get_products(){
 		$this->load->model('Product');
 		$all_products_array=[];
@@ -30,15 +34,19 @@ class Products_process extends CI_Controller {
 		$this->session->set_userdata('all_products',$all_products_array);
 		$this->index();
 	}
+	//Finds products to display on screen
 	public function get_page($page){
 		if($this->session->userdata('all_products'))
 		echo json_encode($this->session->userdata('all_products')[$page-1]);
 	}
+
+// EDIT PRODUCT PAGE
+
+	//Prepares page for product to edit
 	public function prep_page($id){
 		$this->load->model('Product');
 		$this->session->set_userdata('product_info',$this->Product->findProduct($id));
 		$this->session->set_userdata('categories',$this->Product->getCategories());
-		// var_dump($this->session->userdata('categories'));
 		$all_srcs=$this->Product->getSrcs($id);
 		$src_count=0;
 		$srcs_array=[];
@@ -50,10 +58,13 @@ class Products_process extends CI_Controller {
 		}
 		$this->session->set_userdata('srcs_array',$srcs_array);
 		$this->session->set_userdata('type','Update');
-		$this->session->set_userdata('to_update_categories',array());
+		$a=array();
+		$a['PRODUCT CATEGORY']=$this->session->userdata('product_info')['category_id'];
+		$this->session->set_userdata('to_update_categories',$a);
 		$this->session->set_userdata('to_update_images',array());
 		$this->editView();
 	}
+	//Processes updates after edits for product are submitted
 	public function update($id){
 		$category='';
 		$a=$this->session->userdata('to_update_categories');
@@ -71,7 +82,6 @@ class Products_process extends CI_Controller {
 		}
 		//If no new category is inputted
 		if(!empty($this->input->post('category_new'))){
-			echo 'new cat entered';
 			$this->load->library('form_validation');
 			$this->form_validation->set_rules('category_new','new category','trim|unique');
 			//New category inputted has errors | FORM VALIDATION FAILS!
@@ -83,6 +93,8 @@ class Products_process extends CI_Controller {
 				$category=$this->input->post('category_new');
 				$this->Product->newCategory($category);
 			}
+			$data['MSG']='YUGIOHHHH';
+			echo json_encode($data);
 		}
 		if($id=='NEW'){
 			$this->Product->newProduct($this->input->post('item'),$this->input->post('description'),$category);
@@ -121,9 +133,6 @@ class Products_process extends CI_Controller {
 		$a['IMAGE ORDER']=$order;
 		$this->session->set_userdata('to_update_images',$a);
 	}
-	public function delete($page){
-
-	}
 	//Saves actual category id into session
 	public function setCategory($category_id){
 		$a=$this->session->userdata('to_update_categories');
@@ -145,6 +154,10 @@ class Products_process extends CI_Controller {
 		$this->session->set_userdata('to_update_categories',$a);
 		echo json_encode($this->session->userdata('to_update_categories'));
 	}
+
+// ADD A NEW PRODUCT PAGE
+
+	//Prepares Add a New Product page
 	public function add(){
 		$this->session->set_userdata('type','Add');
 		$this->session->set_userdata('product_info',array('id'=>'NEW','item'=>'','description'=>''));

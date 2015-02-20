@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- Ulysses Lin 12/10/14 -->
+<!-- Ulysses Lin 12/10/14, updated Feb 2015 -->
 <html>
 <head>
 	<meta charset="UTF-8">
     <title><?= $type ?> Product</title>
-    <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/edit_style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
     <script type="text/javascript">
@@ -47,7 +47,6 @@
         );
         return false;
     });
-	
    	//Category effects; show edit and delete icons
    	$(document).on('mouseenter','.category',function(){
    		$('.category').removeClass('bold');
@@ -70,7 +69,7 @@
 			'json'
 		);
 		return false;
-   	})
+   	});
    	//Update category & Delete category
    	$(document).on('click','#category-trash,#category-edit',function(){
    		var link=$(this).attr('href');
@@ -101,7 +100,6 @@
 				$.get(
 					link+'/'+new_cat,
 					function(data){
-						console.log(data);
 					},
 					'json'
 				);
@@ -126,13 +124,13 @@
 			$.ajax({
 				url: '/organizeImages/'+order,
 				dataType: 'json'
-			})
+			});
 		}
 		$.post(
-			$(this).attr('action'),
-			$(this).serialize(),
+			$(that).attr('action'),
+			$(that).serialize(),
 			function(data){
-				$('h1').before('<h4>Database updated!</h4><a class="pink" href="/products_page">Click HERE to return to products page</a>');
+				$('#update_success_message').html('<h4>Database updated!</h4><a class="pink" href="/products_page">Click HERE to return to products page</a>');
 			},
 			'json'
 		);
@@ -142,15 +140,15 @@
 </head>
 
 <body>
-	
+<span id="update_success_message"></span>
 <?php
 	if(empty($product_info['item'])){
 ?>
-		<h1 class="blah">Add a new product:</h1>
+		<h1>Add a new product:</h1>
 <?php
 	}else{
 ?>
-		<h1 class="blah">Edit Product - <?= $product_info['item'] ?> - ID: <?= $product_info['id'] ?></h1>
+		<h1>Edit Product - <?= $product_info['item'] ?> - ID: <?= $product_info['id'] ?></h1>
 <?php
 	}
 ?>
@@ -204,10 +202,9 @@
 			</tr>
 			<tr><td>or add a new category </td><td><input type="text" name="category_new"></td></tr>
 		</table>
-		<input type="submit" name="update" value="<?= $type ?>">
+		<input class="button" type="submit" name="update" value="<?= $type ?>">
+		<a href="/products_page"><span class="button">Return</span></a>
 	</form>
-	<a class="button" href="/products_page">Cancel</a>
-	<a class="button" href="#">Preview</a>
 	<span id="warning"><?= $this->session->flashdata('errors') ?></span>
 </div>
 </body>

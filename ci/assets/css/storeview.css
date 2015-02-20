@@ -66,7 +66,7 @@
 			color:black;
 		}
 
-		#nav a:hover{
+		#nav li:hover{
 			background-color: black;
 			color: white;
 		}
@@ -165,6 +165,7 @@
 				width: 77px;
 				height: 77px;
 				overflow: hidden;
+				cursor: crosshair;
 			}
 			#similar{
 				width: 960px;
