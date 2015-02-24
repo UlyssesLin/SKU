@@ -90,7 +90,7 @@ if($items!=null){
 
 	<div id="footer">
 		<p class="nestled"><a class="white" href="/logins">Admin</a></p>
-		<p class="nestled">© 2014 S.K.U.</p>
+		<p class="nestled">©2014 S.K.U.</p>
 	</div>
 
 
